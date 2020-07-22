@@ -12,7 +12,7 @@ devtools::install_github("reconhub/linelist")
 library(linelist)
 
 #Specify country using ISO3
-country <- "KEN"
+country <- "UGA"
 
 washdata <- read_csv(here("data","washdata_2017.csv")) %>% 
   filter(ISO3 %in% country) %>% 
@@ -25,13 +25,13 @@ washdata <- read_csv(here("data","washdata_2017.csv")) %>%
       service_type=="Hygiene" ~ 3),
   levelcat=
     case_when(
-      service_type=="Drinking water" & service_level=="Safely managed" ~ 5,
-      service_type=="Drinking water" & service_level=="At least basic" ~ 4,
+      service_type=="Drinking water" & (service_level=="Safely managed"|service_level=="Safely managed service") ~ 5,
+      service_type=="Drinking water" & (service_level=="At least basic"|service_level=="Basic service") ~ 4,
       service_type=="Drinking water" & service_level=="Limited service" ~ 3,
       service_type=="Drinking water" & service_level=="Unimproved" ~ 2,
       service_type=="Drinking water" & service_level=="Surface water" ~ 1,
-      service_type=="Sanitation" & service_level=="Safely managed" ~ 5,
-      service_type=="Sanitation" & service_level=="At least basic" ~ 4,
+      service_type=="Sanitation" & (service_level=="Safely managed"|service_level=="Safely managed service") ~ 5,
+      service_type=="Sanitation" & (service_level=="At least basic"|service_level=="Basic service") ~ 4,
       service_type=="Sanitation" & service_level=="Limited service" ~ 3,
       service_type=="Sanitation" & service_level=="Unimproved" ~ 2,
       service_type=="Sanitation" & service_level=="Open defecation" ~ 1,
